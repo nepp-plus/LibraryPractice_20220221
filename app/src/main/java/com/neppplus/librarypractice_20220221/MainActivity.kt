@@ -23,12 +23,12 @@ class MainActivity : AppCompatActivity() {
         btnCall.setOnClickListener {
 
 //            권한 승인 여부에 따른, 행동 방안을 작성해서 => pl 변수에 담아두자.
-            val pl = object : PermissionListener {
+            val permissionListener = object : PermissionListener {
                 override fun onPermissionGranted() {
 
 //                    승인이 OK 일때 할 행동.
                     val myUri = Uri.parse("tel:01033337777")
-                    val myIntent = Intent( Intent.ACTION_CALL, myUri )
+                    val myIntent = Intent(Intent.ACTION_CALL, myUri)
                     startActivity(myIntent)
 
                 }
@@ -44,9 +44,10 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+
 //            실제로 권한을 물어보자.
             TedPermission.create()
-                .setPermissionListener(pl)
+                .setPermissionListener(permissionListener)
                 .setPermissions(Manifest.permission.CALL_PHONE)
                 .check()
 
